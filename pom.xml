@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001 XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hu.blackbelt.eclipse</groupId>
+    <artifactId>p2-swagger</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Swagger P2 site</name>
+    
+    <properties>
+        <project-shortname>p2-swagger</project-shortname>
+        <project-repositoryId>BlackBeltTechnology/judo-meta-esm</project-repositoryId>
+    </properties>
+
+    <description>Swagger P2 Repository</description>
+    <url>http://github.com/${project-repositoryId}</url>
+
+
+    <issueManagement>
+        <url>https://github.com/${project-repositoryId}/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+    
+    <scm>
+        <connection>scm:git:git@github.com:${project-repositoryId}.git</connection>
+        <developerConnection>scm:git:ssh://${git.username}@github.com:${project-repositoryId}.git
+        </developerConnection>
+        <url>http://github.com/${project-repositoryId}</url>
+    </scm>
+    
+    <developers>
+        <developer>
+            <id>robson</id>
+            <name>Róbert Csákány</name>
+            <email>robert.csakany@blackbelt.hu</email>
+            <url>https://github.com/robertcsakany</url>
+            <organization>BlackBelt Technology</organization>
+            <organizationUrl>http://www.blackbelt.hu</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.reficio</groupId>
+                <artifactId>p2-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <executions>
+                    <execution>
+                        <id>pack-repository</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+
+                        <configuration>
+                            <compressSite>true</compressSite>
+                            <artifacts>
+                                <artifact><id>io.swagger:swagger-core:1.5.21</id></artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                    <tarLongFileMode>posix</tarLongFileMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>compress</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>8.1.5.v20120716</version>
+                <configuration>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webAppSourceDirectory>${basedir}/target/repository/</webAppSourceDirectory>
+                    <webApp>
+                        <contextPath>/site</contextPath>
+                    </webApp>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sign-artifacts</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                    <!-- This is necessary for gpg to not try to use the pinentry programs -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>release-dummy</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>dummy-distribution</id>
+                    <url>file:///tmp/maven-snapshot/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>dummy-distribution</id>
+                    <url>file:///tmp/maven-release/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        
+        <profile>
+            <id>release-blackbelt</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>blackbelt-nexus-distribution</id>
+                    <url>https://nexus.blackbelt.cloud/repository/maven-judo-snapshot/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>blackbelt-nexus-distribution</id>
+                    <url>https://nexus.blackbelt.cloud/repository/maven-judo-release/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        
+        <profile>
+            <id>release-central</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        
+        <profile>
+            <id>release-github</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>de.jutzig</groupId>
+                        <artifactId>github-release-plugin</artifactId>
+                        <version>1.3.0</version>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <repositoryId>${project-repositoryId}</repositoryId>
+                            <description>
+                                **Branch:** ${env.WERCKER_GIT_BRANCH}
+                                **P2 Update Site:** https://nexus.blackbelt.cloud/repository/p2-judo/${project-shortname}/${project.version}
+                                **Maven repository:** https://nexus.blackbelt.cloud/#browse/browse:maven-judo-release:hu%2Fblackbelt%2Feclipse%2F${project-shortname}
+                                **Wercker:** https://app.wercker.com/${project-repositoryId}/runs/build/${env.WERCKER_RUN_ID}
+                            </description>
+                            <releaseName>${project.version}</releaseName>
+                            <prerelease>true</prerelease>
+                            <tag>${project.version}</tag>
+                            <deleteRelease>true</deleteRelease>
+                            <commitish>${env.WERCKER_GIT_COMMIT}</commitish>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${basedir}/target</directory>
+                                    <includes>
+                                        <include>*.zip</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>release-to-github</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>release</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>release-p2-blackbelt</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>wagon-maven-plugin</artifactId>
+                        <version>2.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>upload-respoitory</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>upload</goal>
+                                </goals>
+                                <configuration>
+                                    <serverId>blackbelt-nexus-distribution</serverId>
+                                    <fromDir>${basedir}/target/repository</fromDir>
+                                    <includes>*/**</includes>
+                                    <url>dav:https://nexus.blackbelt.cloud/repository/p2-judo</url>
+                                    <toDir>${project-shortname}/${project.version}</toDir>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
