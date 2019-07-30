@@ -11,7 +11,7 @@
     
     <properties>
         <project-shortname>p2-swagger</project-shortname>
-        <project-repositoryId>BlackBeltTechnology/judo-meta-esm</project-repositoryId>
+        <project-repositoryId>BlackBeltTechnology/p2-swagger</project-repositoryId>
     </properties>
 
     <description>Swagger P2 Repository</description>
