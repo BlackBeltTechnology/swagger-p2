@@ -30,7 +30,8 @@
         </server>
         
     </servers>
-    
+
+    <!--
     <mirrors>
         <mirror>
             <id>blackbelt-nexus-mirror</id>
@@ -39,7 +40,7 @@
             <mirrorOf>central</mirrorOf>
         </mirror>
     </mirrors>
-    
+    -->
     <profiles>
         <profile>
             <id>ossrh</id>
