@@ -6,7 +6,7 @@
     <groupId>hu.blackbelt.eclipse</groupId>
     <artifactId>p2-swagger</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Swagger P2 site</name>
     
     <properties>
