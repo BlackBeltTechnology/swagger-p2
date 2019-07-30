@@ -1,0 +1,7 @@
+# Eclipse P2 Site of Swagger dependencies
+
+Aggregated site of swagger dependencies
+
+To use it download the compressed version from central or use the zipped version directly:
+
+http://repo1.maven.org/maven2/hu/blackbelt/eclipse/p2-swagger/${VERSION}/p2-swagger-${VERSION}-site.zip!/
