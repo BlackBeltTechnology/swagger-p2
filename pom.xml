@@ -272,7 +272,7 @@
                                 </goals>
                                 <configuration>
                                     <serverId>judong-nexus-distribution</serverId>
-                                    <fromDir>${basedir}/site/target/repository</fromDir>
+                                    <fromDir>${basedir}/target/repository</fromDir>
                                     <includes>*/**</includes>
                                     <url>dav:${env.JUDONG_P2_UPSTREAM}</url>
                                     <toDir>${project-shortname}/${project.version}</toDir>
