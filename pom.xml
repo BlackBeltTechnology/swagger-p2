@@ -6,7 +6,7 @@
     <groupId>hu.blackbelt.eclipse</groupId>
     <artifactId>p2-swagger</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>Swagger P2 site</name>
     
     <properties>
@@ -65,8 +65,9 @@
 
                         <configuration>
                             <compressSite>true</compressSite>
+                            <source>true</source>
                             <artifacts>
-                                <artifact><id>io.swagger:swagger-core:1.5.21</id></artifact>
+                                <artifact><id>io.swagger:swagger-core:1.5.24</id><source>true</source></artifact>
                             </artifacts>
                         </configuration>
                     </execution>
@@ -154,17 +155,17 @@
                 </repository>
             </distributionManagement>
         </profile>
-        
+
         <profile>
-            <id>release-blackbelt</id>
+            <id>release-judong</id>
             <distributionManagement>
                 <snapshotRepository>
-                    <id>blackbelt-nexus-distribution</id>
-                    <url>https://nexus.blackbelt.cloud/repository/maven-judo-snapshot/</url>
+                    <id>judong-nexus-distribution</id>
+                    <url>${env.JUDONG_MAVEN_UPSTREAM_SNAPSHOT}</url>
                 </snapshotRepository>
                 <repository>
-                    <id>blackbelt-nexus-distribution</id>
-                    <url>https://nexus.blackbelt.cloud/repository/maven-judo-release/</url>
+                    <id>judong-nexus-distribution</id>
+                    <url>${env.JUDONG_MAVEN_UPSTREAM_RELEASE}</url>
                 </repository>
             </distributionManagement>
         </profile>
@@ -223,8 +224,8 @@
                             <repositoryId>${project-repositoryId}</repositoryId>
                             <description>
                                 **Branch:** ${env.WERCKER_GIT_BRANCH}
-                                **P2 Update Site:** https://nexus.blackbelt.cloud/repository/p2-judo/${project-shortname}/${project.version}
-                                **Maven repository:** https://nexus.blackbelt.cloud/#browse/browse:maven-judo-release:hu%2Fblackbelt%2Feclipse%2F${project-shortname}
+                                **P2 Update Site:** ${env.JUDONG_P2_DOWNSTREAM}${project-shortname}/${project.version}
+                                **Maven repository:** ${env.JUDONG_MAVEN_UPSTREAM_SNAPSHOT}/#browse/browse:maven-judo-release:hu%2Fblackbelt%2Feclipse%2F${project-shortname}
                                 **Wercker:** https://app.wercker.com/${project-repositoryId}/runs/build/${env.WERCKER_RUN_ID}
                             </description>
                             <releaseName>${project.version}</releaseName>
@@ -254,9 +255,9 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
-            <id>release-p2-blackbelt</id>
+            <id>release-p2-judong</id>
             <build>
                 <plugins>
                     <plugin>
@@ -271,10 +272,10 @@
                                     <goal>upload</goal>
                                 </goals>
                                 <configuration>
-                                    <serverId>blackbelt-nexus-distribution</serverId>
+                                    <serverId>judong-nexus-distribution</serverId>
                                     <fromDir>${basedir}/target/repository</fromDir>
                                     <includes>*/**</includes>
-                                    <url>dav:https://nexus.blackbelt.cloud/repository/p2-judo</url>
+                                    <url>dav:${env.JUDONG_P2_UPSTREAM}</url>
                                     <toDir>${project-shortname}/${project.version}</toDir>
                                 </configuration>
                             </execution>
