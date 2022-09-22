@@ -10,7 +10,7 @@
     <name>Swagger P2 site</name>
     
     <properties>
-        <revision>1.0.2-SNAPSHOT</revision>
+        <revision>1.0.2</revision>
         <maven>3.8.3</maven>
         <project-shortname>p2-swagger</project-shortname>
         <project-repositoryId>BlackBeltTechnology/p2-swagger</project-repositoryId>
