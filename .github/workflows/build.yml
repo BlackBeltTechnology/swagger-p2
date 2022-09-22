@@ -107,6 +107,17 @@ jobs:
           -Prelease-judong \
           deploy
 
+      - name: Release P2
+        run: |-
+          ./mvnw -B -Dstyle.color=always \
+          -Drevision=${{ steps.version.outputs.version }} \
+          -Dtycho.mode=maven \
+          -Prelease-dummy,release-p2-judong \
+          -DdeployOnly \
+          -DskipTests=true \
+          -DskipModules=true \
+          deploy
+
       # Phase 2 - Build and deploy to maven central
       - name: 🎁 Deploy with Maven (central)
         if: ${{ always() && startsWith(github.head_ref, 'release') && job.status == 'success' }}
