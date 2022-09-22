@@ -1,7 +1,15 @@
-# Eclipse P2 Site of Swagger dependencies
+= Eclipse P2 Site of Swagger dependencies
 
-Aggregated site of swagger dependencies
+image::https://github.com/BlackBeltTechnology/p2-swagger/actions/workflows/build.yml/badge.svg?branch=develop[link="https://github.com/BlackBeltTechnology/p2-swagger/actions/workflows/build.yml" float="center"]
 
-To use it download the compressed version from central or use the zipped version directly:
+== Introduction
 
-http://repo1.maven.org/maven2/hu/blackbelt/eclipse/p2-swagger/${VERSION}/p2-swagger-${VERSION}-site.zip!/
+Aggregated P2 site of swagger dependencies
+
+== Context
+
+Everyone is welcome to contribute to JUDO! As a starter, please read the corresponding link:CONTRIBUTING.adoc[CONTRIBUTING] guide for details!
+
+== License
+
+This project is licensed under the https://www.eclipse.org/legal/epl-2.0/[Eclipse Public License - v 2.0].
