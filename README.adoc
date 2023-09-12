@@ -1,6 +1,6 @@
 = Eclipse P2 Site of Swagger dependencies
 
-image::https://github.com/BlackBeltTechnology/p2-swagger/actions/workflows/build.yml/badge.svg?branch=develop[link="https://github.com/BlackBeltTechnology/p2-swagger/actions/workflows/build.yml" float="center"]
+image::https://github.com/BlackBeltTechnology/swagger-p2/actions/workflows/build.yml/badge.svg?branch=develop[link="https://github.com/BlackBeltTechnology/swagger-p2/actions/workflows/build.yml" float="center"]
 
 == Introduction
 
