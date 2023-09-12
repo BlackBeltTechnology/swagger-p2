@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>hu.blackbelt.eclipse</groupId>
-    <artifactId>p2-swagger</artifactId>
+    <artifactId>swagger-p2</artifactId>
     <packaging>pom</packaging>
     <version>${revision}</version>
     <name>Swagger P2 site</name>
@@ -12,8 +12,8 @@
     <properties>
         <revision>1.0.4-SNAPSHOT</revision>
         <maven>3.9.4</maven>
-        <project-shortname>p2-swagger</project-shortname>
-        <project-repositoryId>BlackBeltTechnology/p2-swagger</project-repositoryId>
+        <project-shortname>swagger-p2</project-shortname>
+        <project-repositoryId>BlackBeltTechnology/swagger-p2</project-repositoryId>
     </properties>
 
     <description>Swagger P2 Repository</description>
