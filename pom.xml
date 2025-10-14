@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <version>${revision}</version>
     <name>Swagger P2 site</name>
-    
+
     <properties>
         <revision>1.0.4-SNAPSHOT</revision>
         <maven>3.9.4</maven>
@@ -24,14 +24,14 @@
         <url>https://github.com/${project-repositoryId}/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
-    
+
     <scm>
         <connection>scm:git:git@github.com:${project-repositoryId}.git</connection>
         <developerConnection>scm:git:ssh://${git.username}@github.com:${project-repositoryId}.git
         </developerConnection>
         <url>http://github.com/${project-repositoryId}</url>
     </scm>
-    
+
     <developers>
         <developer>
             <id>robson</id>
@@ -49,7 +49,7 @@
             <url>https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt</url>
         </license>
     </licenses>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -234,7 +234,7 @@
 									<serverId>judong-nexus-distribution</serverId>
 									<fromDir>${basedir}/target/repository</fromDir>
 									<includes>*/**</includes>
-									<url>dav:https://nexus.judo.technology/repository/p2-judong/</url>
+                                    <url>dav:https://repository.judo.technology/repository/p2-judong-upstream/</url>
 									<toDir>${project-shortname}/${project.version}</toDir>
 								</configuration>
 							</execution>
@@ -355,7 +355,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>update-source-code-license</id>
             <build>
