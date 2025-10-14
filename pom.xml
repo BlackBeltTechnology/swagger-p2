@@ -231,7 +231,7 @@
 									<goal>upload</goal>
 								</goals>
 								<configuration>
-									<serverId>judong-nexus-distribution</serverId>
+									<serverId>judong-distribution</serverId>
 									<fromDir>${basedir}/target/repository</fromDir>
 									<includes>*/**</includes>
                                     <url>dav:https://repository.judo.technology/repository/p2-judong-upstream/</url>
