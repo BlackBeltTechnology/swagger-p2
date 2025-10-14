@@ -171,21 +171,21 @@
 			</distributionManagement>
 		</profile>
 
-		<profile>
-			<id>release-judong</id>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>judong-nexus-distribution</id>
-					<!--suppress UnresolvedMavenProperty -->
-					<url>https://nexus.judo.technology/repository/maven-judong-snapshots/</url>
-				</snapshotRepository>
-				<repository>
-					<id>judong-nexus-distribution</id>
-					<!--suppress UnresolvedMavenProperty -->
-					<url>https://nexus.judo.technology/repository/maven-judong-snapshots/</url>
-				</repository>
-			</distributionManagement>
-		</profile>
+        <profile>
+            <id>release-judong</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>judong-distribution</id>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>https://repository.judo.technology/repository/maven-judong-upstream/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>judong-distribution</id>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>https://repository.judo.technology/repository/maven-judong-upstream/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
 
 		<profile>
 			<id>release-central</id>
@@ -400,4 +400,16 @@
             </build>
         </profile>
     </profiles>
+    <repositories>
+        <repository>
+            <id>judong</id>
+            <url>https://repository.judo.technology/repository/maven-judong/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
