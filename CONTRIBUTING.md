@@ -104,7 +104,7 @@ gitGraph
     merge feature/JNG-123
     branch release/1.0
     commit id: "stabilize"
-    checkout main
+    checkout master
     merge release/1.0 id: "v1.0.3"
     checkout develop
     merge release/1.0
