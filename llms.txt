@@ -1,0 +1,30 @@
+# Swagger P2 Site
+
+> Builds an Eclipse P2 repository (update site) that wraps `io.swagger:swagger-core:1.5.24` and its transitive dependencies as OSGi bundles for Eclipse-based applications.
+
+Key facts:
+- Java 21, Maven 3.9.4 (via Maven Wrapper)
+- Single-module packaging project — no Java source code, no submodules
+- Uses p2-maven-plugin 2.0.0 to generate P2 metadata from Maven artifacts
+- Packages P2 site as ZIP via maven-assembly-plugin
+- Deploys to JUDO Nexus, Maven Central (Sonatype), and JUDO Nexus P2 site via WebDAV
+- License: Eclipse Public License 2.0 (EPL-2.0)
+
+## Docs
+
+- [README.md](README.md): Project introduction, architecture diagram, quick start, and deployment profiles
+- [AGENTS.md](AGENTS.md): Full developer guide with build commands, directory structure, and coding conventions
+- [CONTRIBUTING.md](CONTRIBUTING.md): Development environment setup, branching strategy, and submission guidelines
+
+## Build Configuration
+
+- [pom.xml](pom.xml): Root POM with plugins, profiles, deployment targets, and CI-friendly `${revision}` versioning
+- [src/assembly/assembly.xml](src/assembly/assembly.xml): Assembly descriptor for ZIP packaging of the P2 repository
+- [.mvn/extensions.xml](.mvn/extensions.xml): Wagon extensions for file and WebDAV deployment transport
+
+## Optional
+
+- [.github/CIFLOW.md](.github/CIFLOW.md): CI/CD workflow documentation with Mermaid diagrams
+- [.github/workflows/build.yml](.github/workflows/build.yml): Main CI/CD build pipeline
+- [.github/workflows/release.yml](.github/workflows/release.yml): Manual release workflow
+- [LICENSE.txt](LICENSE.txt): EPL-2.0 full license text
